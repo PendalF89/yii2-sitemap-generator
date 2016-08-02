@@ -21,6 +21,7 @@ to the require section of your `composer.json` file.
 
 Usage
 ------------
+```
 $sitemap = new ArticlesSitemap(); // must implement a SitemapInterface
 $sitemapGenerator = new SitemapGenerator([
   'sitemaps' => [$sitemap],
@@ -28,3 +29,4 @@ $sitemapGenerator = new SitemapGenerator([
   'dir' => '@webRoot',
 ]);
 $sitemapGenerator->generate();
+```
