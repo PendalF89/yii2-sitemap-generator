@@ -24,9 +24,9 @@ interface SitemapInterface
 	 * Например:
 	 * ```
 	 *  [
-	 *      ['url'=> '/1', 'lastmodTimestamp' => 12312312312],
-	 *      ['url'=> '/2', 'lastmodTimestamp' => 12312312342],
-	 *      ['url'=> '/3'],
+	 *      ['url'=> 'http://site.com/1', 'lastmodTimestamp' => 12312312312],
+	 *      ['url'=> 'http://site.com/2', 'lastmodTimestamp' => 12312312342],
+	 *      ['url'=> 'http://site.com/3'],
 	 *  ]
 	 * ```
 	 *
