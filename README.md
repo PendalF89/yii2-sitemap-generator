@@ -24,10 +24,11 @@ Usage
 ```php
 use pendalf89/sitemap/SitemapGenerator;
 
+Yii::$app->urlManager->baseUrl = 'http://site.com'; // base url use in sitemap urls creation
+
 $sitemap = new ArticlesSitemap(); // must implement a SitemapInterface
 $sitemapGenerator = new SitemapGenerator([
   'sitemaps' => [$sitemap],
-  'host' => 'http://site.com',
   'dir' => '@webRoot',
 ]);
 $sitemapGenerator->generate();
