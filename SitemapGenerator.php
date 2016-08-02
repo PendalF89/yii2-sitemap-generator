@@ -9,17 +9,26 @@ use yii\base\Component;
  * Class SitemapGenerator
  * Класс предназначен для создания карты сайта
  *
+ * Пример использования:
+ * ```
+ *  use pendalf89/sitemap/SitemapGenerator;
+ *
+ *	Yii::$app->urlManager->baseUrl = 'http://site.com'; // base url use in sitemap urls creation
+ *	
+ *	$sitemap = new ArticlesSitemap(); // must implement a SitemapInterface
+ *	$sitemapGenerator = new SitemapGenerator([
+ *	 	'sitemaps' => [$sitemap],
+ *	 	'dir' => '@webRoot',
+ *	]);
+ *	$sitemapGenerator->generate();
+ * ```
+ *
  * @package common\components
  */
 class SitemapGenerator extends Component
 {
 	/**
-	 * @var string адрес сайта без слеша на конце. Например, "http://site.com".
-	 */
-	public $host = '';
-
-	/**
-	 * @var string директория для записи файлово карты сайта. Допускается использование алиасов.
+	 * @var string директория для записи файлов карты сайта. Допускается использование алиасов.
 	 */
 	public $dir = '';
 
@@ -72,14 +81,15 @@ class SitemapGenerator extends Component
 	protected function createIndexSitemap()
 	{
 		$sitemapIndex = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-		$sitemapIndex .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;;
+		$sitemapIndex .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+		$baseUrl = Yii::$app->urlManager->baseUrl;
 
 		$sitemaps = $this->createdSitemaps;
 		self::sortByLastmod($sitemaps);
 
 		foreach ($sitemaps as $sitemap) {
 			$sitemapIndex .= '    <sitemap>' . PHP_EOL;
-			$sitemapIndex .= "        <loc>{$this->host}/$sitemap[loc]</loc>" . PHP_EOL;
+			$sitemapIndex .= "        <loc>$baseUrl/$sitemap[loc]</loc>" . PHP_EOL;
 
 			if (!empty($sitemap['lastmodTimestamp'])) {
 				$lastmod = date($this->lastmodFormat, $sitemap['lastmodTimestamp']);
@@ -121,7 +131,7 @@ class SitemapGenerator extends Component
 
 			foreach ($urlsData as $url) {
 				$urlset .= '    <url>' . PHP_EOL;
-				$urlset .= "        <loc>{$this->host}$url[url]</loc>" . PHP_EOL;
+				$urlset .= "        <loc>$url[url]</loc>" . PHP_EOL;
 
 				if (!empty($url['lastmodTimestamp'])) {
 					$date = date($this->lastmodFormat, $url['lastmodTimestamp']);
@@ -181,6 +191,7 @@ class SitemapGenerator extends Component
 	protected function createSitemapFile($filename, $data)
 	{
 		$fullFilename = Yii::getAlias($this->dir) . '/' . $filename;
+
 		return file_put_contents($fullFilename, $data);
 	}
 
