@@ -1,0 +1,21 @@
+{
+    "name": "pendalf89/yii2-sitemap-generator",
+    "description": "Yii2 sitemap generator component",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Boris Zabolotskikh",
+            "email": "zabolotskich@bk.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "pendalf89\\sitemap\\": ""
+        }
+    }
+}
