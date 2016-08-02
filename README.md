@@ -21,7 +21,9 @@ to the require section of your `composer.json` file.
 
 Usage
 ------------
-```
+```php
+use pendalf89/sitemap/SitemapGenerator;
+
 $sitemap = new ArticlesSitemap(); // must implement a SitemapInterface
 $sitemapGenerator = new SitemapGenerator([
   'sitemaps' => [$sitemap],
